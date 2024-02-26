@@ -1,0 +1,24 @@
+body {
+    /* width: 1200px; */
+    /* border: 1px solid gray; */
+    margin: auto;
+    background-color: rgb(241, 234, 234);
+}
+
+li {
+    list-style: none;
+}
+
+nav {
+    background-color: rgb(127, 93, 93);
+
+}
+
+.menu {
+    font-size: 20px;
+}
+
+.menu:hover {
+    color: white;
+    cursor: pointer;
+}
