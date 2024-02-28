@@ -27,9 +27,9 @@ def remove_from_cart(request, item_id):
         cart_item.delete()
     return redirect('cart')
 
-def detail(request,id):
+def details(request,id):
     item = FoodItem.objects.get(pk=id)
-    review = Review.objects.filter(car = FoodItem)
+    review =Review.objects.filter(item=item)
 
     if request.method == 'POST':
         form = ReviewForm(request.POST)
@@ -43,7 +43,7 @@ def detail(request,id):
     return render (request,'fooddetail.html',{'item':item,'form':form,'review':review})
 
 
-def Review(request,id):
+def ReviewView(request,id):
     form =ReviewForm()
     if request.method=='POST':
         form =ReviewForm(request.POST)

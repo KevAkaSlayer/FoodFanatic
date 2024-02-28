@@ -40,7 +40,7 @@ STAR_CHOICES = [
 
 class Review(models.Model):
     reviewer = models.ForeignKey(User,on_delete = models.CASCADE)
-    item = models.ForeignKey(FoodItem,on_delete = models.CASCADE)
+    item = models.ForeignKey(FoodItem,on_delete = models.CASCADE,related_name = 'review')
     body = models.TextField()
     created  = models.DateTimeField(auto_now_add = True)
     rating = models.CharField(max_length = 10,choices = STAR_CHOICES)

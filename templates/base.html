@@ -25,7 +25,7 @@
                 <h3>FoodFanatic</h3>
             </div>
             <div class="menu-container d-flex gap-3">
-                {% comment %} <li class="menu"><a href="index.html"></a></li> {% endcomment %}
+                <li class="menu"><a href="{%url 'home'%}">Home</a></li>
                 <li class="menu">Services</li>
                 <li class="menu">Contact us</li>
                 <li class="menu"><a target="_blank" href="{% url 'login'%}">Login</a></li>
@@ -42,8 +42,8 @@
                         <li>
                             <a class="dropdown-item" href="#">Order History</a>
                         </li>
-                        <li onclick="handlelogOut()">
-                            <a class="dropdown-item">logout</a>
+                        <li>
+                            <a class="dropdown-item" href="{%url 'logout'%}">logout</a>
                         </li>
                     </ul>
                 </div>
