@@ -49,7 +49,8 @@ def ReviewView(request,id):
         form =ReviewForm(request.POST)
         if form.is_valid():
             item = FoodItem.objects.get(pk=id)
-            review = form.cleaned_data['review']
-            Review.objects.create(user=request.user,Review=review , item=item)
+            # review = form.cleaned_data['body']
+            # print(review)
+            Review.objects.create(user=request.user,item=item)
             return redirect('cart',id=id) #will add something
     return render(request,'review.html',{'form':form})
