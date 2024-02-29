@@ -48,10 +48,11 @@
 
      
        <div class="card text-black bg-secondary-subtle  mb-3" style="max-width: 18rem;">
-        <div class="card-header">{{cm.created_on}}</div>
+        <div class="card-header">{{cm.created}}</div>
         <div class="card-body">
-          <h5 class="card-title">{{cm.user.first_name}} {{cm.user.last_name}}</h5>
-          <p class="card-text">{{cm.Review}}</p>
+          <h5 class="card-title">{{cm.reviewer.first_name}} {{cm.reviewer.last_name}}</h5>
+          <p class="card-text">{{cm.rating}}</p>
+          <p class="card-text">{{cm.body}}</p>
         </div>
       </div>
    
