@@ -1,0 +1,68 @@
+{% extends "base.html" %} {% load crispy_forms_tags %} {% block content %}
+
+<div class ="bg-body-secondary"> 
+<div class="container pt-5">
+  <div class="row">
+    <div class="col-md-6">
+      <img style="height:500px;width:400px;"
+        src="{{ item.image.url }}"
+        class="img-fluid"
+        alt="{{ item.name }} Image"
+      />
+    </div>
+
+    <div class="col-md-6">
+      <div class="mb-4">
+        <h2>{{ item.title}}</h2>
+        <p class="text-muted">{{ item.description }}</p>
+      </div>
+      <div class='d-flex gap-3 p-2'>
+     <h4> Category : </h4>
+
+      {% for cat in item.category.all %}
+        
+      <a class='btn btn-info ' href="{% url 'catfilter' cat.slug %}"> {{cat.name}}</a>
+           
+      
+
+      {% endfor %}
+
+</div>
+      <div class="mb-4">
+        <h4 class='p-2'>Price: ${{ item.price }}</h4>
+        <a class="btn btn-primary" href="{% url 'review' item.id %}">Write a Review</a>
+        <a class="btn btn-warning" href="{% url 'addcart' item.id %}">Add To Cart</a>
+       
+    </div>
+  </div>
+</div>
+
+<div class=" p-2 w-100   bg-body-secondary  ">
+    <div class="text-center">
+        <h1 class="mb-4 pt-5 ">Reviews</h1>
+         <h4 class='px-3 '>Total :{{review | length}}</h4>
+   
+
+     <div class='row gap-3 p-2'> 
+       {% for cm in review %}
+
+     
+       <div class="card text-black bg-secondary-subtle  mb-3" style="max-width: 18rem;">
+        <div class="card-header">{{cm.created_on}}</div>
+        <div class="card-body">
+          <h5 class="card-title">{{cm.user.first_name}} {{cm.user.last_name}}</h5>
+          <p class="card-text">{{cm.Review}}</p>
+        </div>
+      </div>
+   
+    
+       {% endfor %}
+      </div>
+
+
+    </div>
+
+  
+</div>
+
+{% endblock %}
