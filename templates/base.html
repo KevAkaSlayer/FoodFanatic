@@ -7,9 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Food Fanatic</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="..." />
+      <script src="https://cdn.tailwindcss.com"></script>
 
-        <link rel="stylesheet" href="{% static '/static/style.css'%}" />
+        {% comment %} <link rel="stylesheet" href="{% static './static/style.css'%}" /> {% endcomment %}
 
     
 </head>
@@ -18,41 +18,47 @@
     <header>
 
         <!-- Navbar -->
-
-        <nav class="d-flex justify-content-around align-items-center p-4">
-            <div class="logo-container d-flex align-items-center gap-2">
+    <div class='bg-[#D7AA98]'>
+        <nav class="max-w-7xl mx-auto flex justify-around item-center p-4 ">
+            <div class="logo-container flex item-center gap-2"> 
                 <img src="{% static './Images/logo.png' %}" alt="" />
-                <h3>FoodFanatic</h3>
+                <h3 class='text-white text-2xl font-serif'>FoodFanatic</h3>
             </div>
-            <div class="menu-container d-flex gap-3">
-                <li class="menu"><a href="{%url 'home'%}">Home</a></li>
-                <li class="menu">Services</li>
-                <li class="menu">Contact us</li>
-                <li class="menu"><a target="_blank" href="{% url 'login'%}">Login</a></li>
-                <li class="menu"><a target="_blank" href="{%url 'register'%}">Register</a></li>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        profile
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                        <li>
-                            <a class="dropdown-item active" href="#">profile</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">Order History</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="{%url 'logout'%}">logout</a>
-                        </li>
-                    </ul>
-                </div>
+            <div class="menu-container flex gap-2">
+                <ul class='text-white flex flex-row justify-center item-center gap-5 text-lg font-semibold'>
+                    <li class="hover:bg-[#C6866C] px-2 py-1 rounded-md border-b-2 border-b-[#D7AA98] hover:border-b-[#BA6D4F]  transition-colors duration-300"><a href="{%url 'home'%}">Home</a></li>
+                    <li class="hover:bg-[#C6866C] px-2 py-1 rounded-md border-b-2 border-b-[#D7AA98] hover:border-b-[#BA6D4F]  transition-colors duration-300">Contact us</li>
+                    <li class="hover:bg-[#C6866C] px-2 py-1 rounded-md border-b-2 border-b-[#D7AA98] hover:border-b-[#BA6D4F]  transition-colors duration-300"><a target="_blank" href="{% url 'login'%}">Login</a></li>
+                    <li class="hover:bg-[#C6866C] px-2 py-1 rounded-md border-b-2 border-b-[#D7AA98] hover:border-b-[#BA6D4F]  transition-colors duration-300"><a target="_blank" href="{% url 'login'%}">
+                        <img src="{%static './assets/cart.png'%}" alt="">
+                    </a></li>
+                    <li class="hover:bg-[#C6866C] px-2 py-1 rounded-md border-b-2 border-b-[#D7AA98] hover:border-b-[#BA6D4F]  transition-colors duration-300"><a target="_blank" href="{%url 'register'%}">Register</a></li>
+                </ul>
+                   <div class="dropdown">
+                        <button class="text-lg font-semibold text-white hover:bg-[#C6866C] px-2 py-1 rounded-md border-b-2 border-b-[#D7AA98] hover:border-b-[#BA6D4F]  transition-colors duration-300" type="button">
+                            profile
+                        </button>
+                        <ul class="hidden">
+                            <li class=''>
+                                <a href="#">profile</a>
+                            </li>
+                            <li>
+                                <a href="#">Order History</a>
+                            </li>
+                            <li>
+                                <a href="{%url 'logout'%}">logout</a>
+                            </li>
+                        </ul>
+                    </div>
             </div>
         </nav>
+    </div>
 
 
         <!-- Banner -->
+    <div>
 
+    </div>
     </header>
     {%block content%} 
     
