@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,18 +20,18 @@
 
         <!-- Navbar -->
     <div class='bg-[#D7AA98]'>
-        <nav class="max-w-7xl mx-auto flex justify-around item-center p-4 ">
-            <div class="logo-container flex item-center gap-2"> 
+        <nav class="max-w-7xl mx-auto flex justify-between item-center p-4 ">
+            <div class="flex item-center gap-2"> 
                 <img src="{% static './Images/logo.png' %}" alt="" />
                 <h3 class='text-white text-2xl font-serif'>FoodFanatic</h3>
             </div>
-            <div class="menu-container flex gap-2">
+            <div class="flex gap-2">
                 <ul class='text-white flex flex-row justify-center item-center gap-5 text-lg font-semibold'>
                     <li class="hover:bg-[#C6866C] px-2 py-1 rounded-md border-b-2 border-b-[#D7AA98] hover:border-b-[#BA6D4F]  transition-colors duration-300"><a href="{%url 'home'%}">Home</a></li>
                     <li class="hover:bg-[#C6866C] px-2 py-1 rounded-md border-b-2 border-b-[#D7AA98] hover:border-b-[#BA6D4F]  transition-colors duration-300">Contact us</li>
                     <li class="hover:bg-[#C6866C] px-2 py-1 rounded-md border-b-2 border-b-[#D7AA98] hover:border-b-[#BA6D4F]  transition-colors duration-300"><a target="_blank" href="{% url 'login'%}">Login</a></li>
                     <li class="hover:bg-[#C6866C] px-2 py-1 rounded-md border-b-2 border-b-[#D7AA98] hover:border-b-[#BA6D4F]  transition-colors duration-300"><a target="_blank" href="{% url 'login'%}">
-                        <img src="{%static './assets/cart.png'%}" alt="">
+                        <img src="" alt="">
                     </a></li>
                     <li class="hover:bg-[#C6866C] px-2 py-1 rounded-md border-b-2 border-b-[#D7AA98] hover:border-b-[#BA6D4F]  transition-colors duration-300"><a target="_blank" href="{%url 'register'%}">Register</a></li>
                 </ul>
@@ -60,6 +61,10 @@
 
     </div>
     </header>
+
+
+
+
     {%block content%} 
     
     {%endblock %}
