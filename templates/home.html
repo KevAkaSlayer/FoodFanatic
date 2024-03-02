@@ -16,8 +16,8 @@
 
 
 
-<div class = "banner">
-  <img src="{% static 'assets/banner.png' %}" alt="">
+<div>
+  <img src="{% static 'banner.png' %}" alt="">
 </div>
 
 
@@ -25,7 +25,7 @@
 
 <div class="p-2 max-w-7xl mx-auto">
 
-        <h1 class="mb-4 pt-5 text-center">Available Food</h1>
+        <h1 class="mb-20 pt-5 text-center text-4xl font-semibold ">Available Food</h1>
 
       {% comment %} Tab Bar {% endcomment %}
         <div class='flex flex-row justify-center items-start gap-5'>
@@ -39,7 +39,7 @@
             </div>
 
             <div class="w-3/4">
-              <h4 class='px-3 '>{{data | length}} results found</h4>
+              <h4 class='px-3 text-2xl font-semibold'>{{data | length}} results found</h4>
 
               {% comment %} All Foods Cards {% endcomment %}
               <div class="grid grid-cols-3 gap-5 pt-5">

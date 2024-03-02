@@ -1,69 +1,57 @@
 {% extends "base.html" %} {% load crispy_forms_tags %} {% block content %}
 
-<div class ="bg-body-secondary"> 
-<div class="container pt-5">
-  <div class="row">
-    <div class="col-md-6">
-      <img style="height:500px;width:400px;"
-        src="{{ item.image.url }}"
-        class="img-fluid"
-        alt="{{ item.name }} Image"
-      />
-    </div>
+<div class =""> 
+  <div class="pt-5 max-w-7xl mx-auto my-24">
 
-    <div class="col-md-6">
-      <div class="mb-4">
-        <h2>{{ item.title}}</h2>
-        <p class="text-muted">{{ item.description }}</p>
-      </div>
-      <div class='d-flex gap-3 p-2'>
-     <h4> Category : </h4>
+    <h1 class='text-center text-5xl font-semibold mb-10'>{{ item.title}}</h1>
+    {% comment %} Single Food Detail {% endcomment %}
+    <div class="flex justify-center items-start gap-5 w-fit mx-auto rounded-md">
 
-      {% for cat in item.category.all %}
+      {% comment %}Food Image {% endcomment %}
+        <img 
+          src="{{ item.image.url }}"
+          class="w-[550px] h-[370px] rounded-md"
+          alt="{{ item.name }} Image"
+        />
+
+      <div class="w-[550px] h-[370px] bg-slate-800 p-5 flex flex-col text-white rounded-md">
+          <h2 class='text-3xl font-semibold my-4'>{{ item.title}}</h2>
+          <p class='text-lg mb-2'>Description: {{ item.description }}</p>
         
-      <a class='btn btn-info ' href="{% url 'catfilter' cat.slug %}"> {{cat.name}}</a>
+        {% comment %} mapping category {% endcomment %}
+        {% for cat in item.category.all %}
+          <h4 class='bg-gray-500 rounded-md w-fit px-3 py-1 text-sm mb-2'> {{cat.name}}</h4>
            
-      
-
       {% endfor %}
-
-</div>
-      <div class="mb-4">
-        <h4 class='p-2'>Price: ${{ item.price }}</h4>
-        <a class="btn btn-primary" href="{% url 'review' item.id %}">Write a Review</a>
-        <a class="btn btn-warning" href="{% url 'addcart' item.id %}">Add To Cart</a>
-       
+          <h4 class='text-xl font-semibold items-stretch'>Price: ${{ item.price }}</h4>
+          <div class="mt-4">
+            <a class="bg-gray-500  text-xl px-3 py-1 rounded-md hover:bg-gray-600 transition-colors duration-300" href="{% url 'review' item.id %}">Write a Review</a>
+            <a class="bg-gray-500  text-xl px-3 py-1 rounded-md hover:bg-gray-600 transition-colors duration-300" href="{% url 'addcart' item.id %}">Add To Cart</a>
+          </div>
+      </div>
+        
     </div>
+    {% comment %} Single Food Detail Ends {% endcomment %}
+
   </div>
-</div>
 
-<div class=" p-2 w-100   bg-body-secondary  ">
-    <div class="text-center">
-        <h1 class="mb-4 pt-5 ">Reviews</h1>
-         <h4 class='px-3 '>Total :{{review | length}}</h4>
-   
 
-     <div class='row gap-3 p-2'> 
+  <div class="text-center">
+        <h1 class="text-5xl font-semibold text-center mb-10">Reviews: {{review | length}}</h1>
+      <div class='max-w-7xl mx-auto flex items-center justify-center gap-3'>
+
+    
        {% for cm in review %}
 
      
-       <div class="card text-black bg-secondary-subtle  mb-3" style="max-width: 18rem;">
-        <div class="card-header">{{cm.created}}</div>
-        <div class="card-body">
-          <h5 class="card-title">{{cm.reviewer.first_name}} {{cm.reviewer.last_name}}</h5>
-          <p class="card-text">{{cm.rating}}</p>
-          <p class="card-text">{{cm.body}}</p>
+        <div class="text-white bg-slate-800 p-5 rounded-md space-y-4" style="max-width: 18rem;">
+              <p class="">{{cm.created}}</p>
+              <h5 class="text-xl font-semibold uppercase">{{cm.reviewer.first_name}} {{cm.reviewer.last_name}}</h5>
+              <p class="">{{cm.rating}}</p>
+              <p class="">{{cm.body}}</p>
         </div>
-      </div>
-   
-    
        {% endfor %}
-      </div>
-
-
-    </div>
-
-  
+      </div> 
+  </div>
 </div>
-
 {% endblock %}
