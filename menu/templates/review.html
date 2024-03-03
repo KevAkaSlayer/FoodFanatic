@@ -18,7 +18,7 @@
    <!-- {{form | crispy }} -->
   {% for fm in form%}
   
-  {{fm.label_tag}} {{fm}} {{fm.errors|striptags}} 
+ <p class='h-40'>{{fm.label_tag}} {{fm}} {{fm.errors|striptags}} </p> 
   <br />
   {{fm.rating}}
   {% endfor %}

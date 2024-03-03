@@ -22,42 +22,30 @@
     <div class='bg-slate-800'>
         <nav class="max-w-7xl mx-auto flex justify-between item-center p-4 ">
             <div class="flex item-center gap-2"> 
-                <img src="{% static './Images/logo.png' %}" alt="" />
+                <img src="#" alt="" />
                 <h3 class='text-white text-2xl font-serif'>FoodFanatic</h3>
             </div>
             <div class="flex gap-2">
                 <ul class='text-white flex flex-row justify-center item-center gap-5 text-lg font-semibold'>
                     <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a href="{%url 'home'%}">Home</a></li>
                     <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300">Contact us</li>
-                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a target="_blank" href="{% url 'login'%}">Login</a></li>
-                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a target="_blank" href="{% url 'login'%}">
-                        <img src="" alt="">
+                    {% if user.is_authenticated %}
+                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a target="_blank" href="#">Profile</a></li>
+                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a target="_blank" href="{%url 'logout'%}">Logout</a></li>
+                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a target="_blank" href="{%url 'cart'%}"><img src="{% static 'icons8-cart-24.png' %}" alt="">
                     </a></li>
+                    {%else %}   
+                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a target="_blank" href="{% url 'login'%}">Login</a></li>
                     <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a target="_blank" href="{%url 'register'%}">Register</a></li>
+                    {% endif %}      
                 </ul>
-                   <div class="dropdown">
-                        <button class="text-lg font-semibold text-white hover:bg-bg-slate-400 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300" type="button">
-                            profile
-                        </button>
-                        <ul class="hidden">
-                            <li class=''>
-                                <a href="#">profile</a>
-                            </li>
-                            <li>
-                                <a href="#">Order History</a>
-                            </li>
-                            <li>
-                                <a href="{%url 'logout'%}">logout</a>
-                            </li>
-                        </ul>
-                    </div>
             </div>
         </nav>
     </div>
 
 
         <!-- Banner -->
-
+    
 
     </header>
 
@@ -68,38 +56,46 @@
     
     {%endblock %}
 
-    <footer class="p-5">
-        <div class="container w-75 m-auto row p-5">
-            <div class="col-md-6">
-                <p><small>Copyright © FoodFanatic. All Rights Reserved</small></p>
-                <h5>Follow US</h5>
-                <div class="icons">
-                    <img class="icon" src="{% static './Images/icons8-facebook-50.png' %}" alt="" />
-                    <img class="icon" src="{% static './Images/icons8-instagram-50.png' %}" alt="" />
-                    <img class="icon" src="{% static './Images/icons8-linkedin-50.png' %}" alt="" />
-                    <img class="icon" src="{% static './Images/icons8-twitterx-50.png' %}" alt="" />
-
+    <footer>
+       <div class=' bg-slate-800'>
+        <div class="max-w-7xl mx-auto shadow-md py-10 flex">
+            <div class="flex flex-col items-start space-y-3 px-10 w-1/2">
+                <h5 class='text-2xl font-semibold text-white mb-8'>Follow US</h5>
+                <div class="flex gap-4">
+                   <a href="#"> <img class="hover:cursor-pointer" src="{% static 'facebookw.png' %}" alt="" /></a>
+                   <a href="#"> <img class="hover:cursor-pointer" src="{% static 'instagram.png' %}" alt="" /></a>
+                   <a href="#"> <img class="hover:cursor-pointer" src="{% static 'linkedin.png' %}" alt="" /></a>
+                   <a href="#"> <img class="hover:cursor-pointer" src="{% static 'twitterx.png' %}" alt="" /></a>
+                    
+                </div>
+            </div> 
+           
+           <div class='w-1/2 border-l-2 border-l-white pl-10'>
+            <h5 class='text-2xl font-semibold text-white mb-8'>Contact US</h5>
+            <div class='text-white space-y-4'>
+                <div class='flex items-center justify-start gap-5'>
+                    <img class="w-8 h-8" src="{% static 'location.png' %}" alt="" />
+                    <p class='max-w-xl'>
+                        
+                        Wisconsin Ave, Suite 700 <br/>
+                        Chevy Chase, Maryland 20815</p>
+                </div>
+                <div class='flex items-center justify-start gap-5'>
+                    <img class="w-8 h-8" src="{% static 'mail.png' %}" alt="" />
+                    <p class='max-w-xl'>support@figma.com</p>
                 </div>
             </div>
-            <div class="col-md-3">
-                <h5>Company</h5>
-                <li>ABout</li>
-                <li>Contact us</li>
-                <li>Culture</li>
-                <li>Blog</li>
-            </div>
-            <div class="col-md-3">
-                <h5>Company</h5>
-                <li>ABout</li>
-                <li>Contact us</li>
-                <li>Culture</li>
-                <li>Blog</li>
-            </div>
+           </div>
         </div>
-        <hr />
-        <p class="text-center mt-3">
-            <small>Copyright © FoodFanatic. All Rights Reserved</small>
-        </p>
+       </div>
+       
+        <ul class="flex items-center justify-center gap-20 font-semibold my-6 text-xl">
+            <a href='#' class='hover:cursor-pointer'>About us</a>
+            <a href='#' class='hover:cursor-pointer'>Service</a>
+            <a href='#' class='hover:cursor-pointer'>Culture</a>
+            <a href='#' class='hover:cursor-pointer'>Blog</a>
+        </ul>
+        <p class="text-center flex items-center justify-center my-3"> © 2021 All Rights Reserved</p>
     </footer>
 
 

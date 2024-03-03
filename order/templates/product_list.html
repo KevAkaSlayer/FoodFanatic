@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for product in products %}
+  <div class="product-item">
+    <img src="{{ product.image.url }}" alt="{{ product.title }}">
+    <h4><a href="{% url 'food_detail' product.pk %}">{{ product.title }}</a></h4>
+    {% if product.discounted_price %}
+      <p class="price">
+        <span class="original-price">{{ product.price}}</span>
+        <span class="discounted-price">{{ product.discounted_price}}</span>
+      </p>
+    {% else %}
+      <p class="price">{{ product.price }}</p>
+    {% endif %}
+    <button class="add-to-cart" data-product-id="{{ product.pk }}">Add to Cart</button>
+  </div>
+{% endfor %}
+{%endblock%}
