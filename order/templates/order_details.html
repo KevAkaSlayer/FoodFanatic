@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>Order Details</h2>
-<p>Order ID: {{ order.id }}</p>
-<p>Order Date: {{ order.created}}</p>
+<div class='max-w-7xl mx-auto'>
+  <h2 class='text-5xl font-semibold my-20 text-center'>Order Details</h2>
+<div class='flex flex-row items-center justify-between text-lg font-semibold my-5'>
+  <p>Order ID: {{ order.id }}</p>
+  <p>Order Date: {{ order.placed_at}}</p>
+</div>
 <table class="order-items">
   <thead>
     <tr>
@@ -17,7 +20,7 @@
     {% for item in order_items %}
       <tr>
         <td>{{ item.product.title }}</td>
-        <td>{{ item.price}}</td>
+        <td>{{item.cartitem.product.price }}</td>
         <td>{{ item.quantity }}</td>
         <td>{{ item.total_cost }}</td>
       </tr>
@@ -30,4 +33,5 @@
     </tr>
   </tfoot>
 </table>
+</div>
 {%endblock%}

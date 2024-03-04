@@ -28,9 +28,10 @@
             <div class="flex gap-2">
                 <ul class='text-white flex flex-row justify-center item-center gap-5 text-lg font-semibold'>
                     <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a href="{%url 'home'%}">Home</a></li>
-                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300">Contact us</li>
+
                     {% if user.is_authenticated %}
-                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a target="_blank" href="#">Profile</a></li>
+                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300 "><a href="{%url 'orderhistory' %}"> Order History</a></li>
+                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a target="_blank" href="{%url 'profile' %}">Profile</a></li>
                     <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a target="_blank" href="{%url 'logout'%}">Logout</a></li>
                     <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a target="_blank" href="{%url 'cart'%}"><img src="{% static 'icons8-cart-24.png' %}" alt="">
                     </a></li>
@@ -82,7 +83,7 @@
                 </div>
                 <div class='flex items-center justify-start gap-5'>
                     <img class="w-8 h-8" src="{% static 'mail.png' %}" alt="" />
-                    <p class='max-w-xl'>support@figma.com</p>
+                    <p class='max-w-xl'>support@gmail.com</p>
                 </div>
             </div>
            </div>

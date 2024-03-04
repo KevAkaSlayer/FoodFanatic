@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .forms import UserForm
+from .forms import UserForm,ChangeData
 from django.views.generic import CreateView
 from django.contrib.auth.models import User
 from .models import AccountModel
@@ -11,6 +11,10 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 import uuid
+from django.utils.decorators import method_decorator
+from django.views.generic import CreateView,UpdateView
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import logout,update_session_auth_hash
 
 
 
@@ -63,7 +67,9 @@ class login_user(LoginView):
         user_obj = User.objects.get(username =user_data)
         account_obj = AccountModel.objects.get(user=user_obj)
         if account_obj.is_activated:
+            messages.success(self.request,'Logged in Successfully')
             return super().form_valid(form)
+            
         else :
             messages.error(self.request,'Please verify your email')
             return redirect('login')
@@ -79,11 +85,26 @@ def userlogout(request):
     messages.warning(request,'Logged out Successfully')
     return redirect('home')
 
+@login_required(login_url='login')
+def Profile(request):
+    return render(request,'profile.html')
 
-# @login_required(login_url='login')
-# def profile(request):
+@method_decorator(login_required(login_url='login'),name = 'dispatch')  
+class updatedata(UpdateView):
+    model = User
+    form_class = ChangeData
+    template_name = 'chngedata.html'
+    success_url = reverse_lazy('profile')
+    pk_url_kwarg = 'id'
 
-#     user = request.user
-#     account = AccountModel.objects.get(user =user)
-
-#     return render(request,'profile.html',{'user':user})
+@login_required(login_url='login')
+def passchnge(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(user = request.user,data = request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request,form.user)
+            return redirect ('profile')
+    else :
+        form = PasswordChangeForm(user = request.user)
+    return render(request,'chngepass.html',{'form':form})

@@ -16,7 +16,7 @@
 
       <div class="w-[550px] h-[370px] bg-slate-800 p-5 flex flex-col text-white rounded-md">
           <h2 class='text-3xl font-semibold my-4'>{{ item.title}}</h2>
-          <p class='text-lg mb-2'>Description: {{ item.description }}</p>
+          <p class='text-lg mb-2'>Description: {{ item.description  }}</p>
         
         {% comment %} mapping category {% endcomment %}
         {% for cat in item.category.all %}
@@ -27,7 +27,12 @@
           
           <div class="mt-4">
             <a class="bg-gray-500  text-xl px-3 py-1 rounded-md hover:bg-gray-600 transition-colors duration-300" href="{% url 'review' item.id %}">Write a Review</a>
+            {% if cart_item >= 1  %}
             <a class="bg-gray-500  text-xl px-3 py-1 rounded-md hover:bg-gray-600 transition-colors duration-300" href="{% url 'addcart' item.id %}">Add To Cart</a>
+            <a class="bg-gray-500  text-xl px-3 py-1 rounded-md hover:bg-gray-600 transition-colors duration-300" href="{% url 'cart' %}">View Cart</a>
+            {% else %}
+            <a class="bg-gray-500  text-xl px-3 py-1 rounded-md hover:bg-gray-600 transition-colors duration-300" href="{% url 'addcart' item.id %}">Add To Cart</a>
+            {% endif %}
           </div>
       </div>
         
@@ -45,7 +50,7 @@
        {% for cm in review %}
 
      
-        <div class="text-white bg-slate-800 p-5 rounded-md space-y-4" style="max-width: 18rem;">
+        <div class="text-white bg-slate-800 p-5 rounded-md space-y-4 mb-5" style="max-width: 18rem;">
               <p class="">{{cm.created}}</p>
               <h5 class="text-xl font-semibold uppercase">{{cm.reviewer.first_name}} {{cm.reviewer.last_name}}</h5>
               <p class="">{{cm.rating}}</p>

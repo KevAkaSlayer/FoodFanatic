@@ -38,6 +38,7 @@
               <a class='hover:bg-opacity-50 px-2 py-1 rounded-md bg-slate-800 border-b-2 border-b-slate-800 hover:border-b-opacity-50  transition-colors duration-300 ' href="{% url 'catfilter' category.slug %}"> {{category.name}}</a>
               {% endfor %}
 
+              <a class='hover:bg-opacity-50 px-2 py-1 rounded-md bg-slate-800 border-b-2 border-b-slate-800 hover:border-b-opacity-50  transition-colors duration-300 ' href="{% url 'product_list'%}">Special Offer</a>
 
             </div>
 
@@ -61,7 +62,8 @@
                 
                         {% endfor %}
                         </h5>
-                        <p class="text-base mt-1 text-white">{{item.description |truncatewords:20}}</p>
+                        
+                        <p class="text-base mt-1 text-white">{{item.description |truncatewords:10}}</p>
                         <div class='absolute top-2 right-2'>
                               <p class='bg-gray-600 px-[4px] py-[2px] rounded-md text-lg text-white font-md'>
                                  $ {{item.price}}

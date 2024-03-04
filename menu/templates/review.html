@@ -4,8 +4,8 @@
 
 
 
-
-<form method="post" style="width: 50%; margin: auto" novalidate>
+<h1 class='text-center text-3xl font-semibold my-20'>Write a Review</h1>
+<form method="post"  novalidate>
   {% csrf_token %} 
 
   {% if form.non_field_errors %}
@@ -18,13 +18,19 @@
    <!-- {{form | crispy }} -->
   {% for fm in form%}
   
- <p class='h-40'>{{fm.label_tag}} {{fm}} {{fm.errors|striptags}} </p> 
-  <br />
-  {{fm.rating}}
+<div class='flex items-center justify-center '>
+  <div class='flex flex-col items-start justify-start mb-4'>
+    <p class=''>{{fm.label_tag}}</p> <p class='border border-black rounded-md w-fiT'> {{fm}} {{fm.errors|striptags}} </p>
+  </div>
+    <br />
+    {{fm.rating}}
+  </div>
   {% endfor %}
+ <div class='flex items-center justify-center my-4'>
+  <button class="bg-slate-800 hover:bg-slate-900 text-white font-bold py-2 px-4 rounded-md transition-colors duration-300" type="submit">Submit</button>
+ </div>
   
 
-  <button class="btn btn-primary" type="submit">Submit</button>
 </form>
 
 
