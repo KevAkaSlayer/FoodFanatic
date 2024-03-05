@@ -1,5 +1,5 @@
-{% extends 'base.html' %} {% load static %} {% block content %} {% if
-form.non_field_errors %} {% for error in form.non_field_errors %}
+{% extends 'base.html' %} {% load static %} {% block content %} 
+{% if form.non_field_errors %} {% for error in form.non_field_errors %}
 <div
   class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2"
   role="alert"
@@ -20,9 +20,9 @@ form.non_field_errors %} {% for error in form.non_field_errors %}
       method="post"
       class="shadow-2xl border border-gray-200 rounded-md px-8 pt-6 pb-8 mb-4"
     >
-      {% csrf_token %} {% for hidden_field in form.hidden_fields %} {{
-      hidden_field.errors }} {{ hidden_field }} {% endfor %} {% for field in
-      form.visible_fields %}
+      {% csrf_token %} {% for hidden_field in form.hidden_fields %} 
+      {{ hidden_field.errors }} {{ hidden_field }} {% endfor %} 
+      {% for field in form.visible_fields %}
       <div class="mb-4">
         <label
           class="block text-zinc-700 font-semibold mb-2"
