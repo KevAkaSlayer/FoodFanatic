@@ -38,7 +38,7 @@
               <a class='hover:bg-opacity-50 px-2 py-1 rounded-md bg-slate-800 border-b-2 border-b-slate-800 hover:border-b-opacity-50  transition-colors duration-300 ' href="{% url 'catfilter' category.slug %}"> {{category.name}}</a>
               {% endfor %}
 
-              <a class='hover:bg-opacity-50 px-2 py-1 rounded-md bg-slate-800 border-b-2 border-b-slate-800 hover:border-b-opacity-50  transition-colors duration-300 ' href="{% url 'product_list'%}">Special Offer</a>
+              {% comment %} <a class='hover:bg-opacity-50 px-2 py-1 rounded-md bg-slate-800 border-b-2 border-b-slate-800 hover:border-b-opacity-50  transition-colors duration-300 ' href="{% url 'product_list'%}">Special Offer</a> {% endcomment %}
 
             </div>
 
@@ -66,7 +66,12 @@
                         <p class="text-base mt-1 text-white">{{item.description |truncatewords:10}}</p>
                         <div class='absolute top-2 right-2'>
                               <p class='bg-gray-600 px-[4px] py-[2px] rounded-md text-lg text-white font-md'>
+                                {% if item.active %}
+                                <del>$ {{item.price}}</del>
+                                <span> $ {{item.discount_price}} </span>
+                                 {%else%}
                                  $ {{item.price}}
+                                 {%endif%}
                             </p>
                         </div>
                         <div class='flex items-center justify-center bg-gray-600 hover:bg-opacity-50 transition duration-300 w-[90px] h-[40px] px-[6px] py-[4px] rounded-md mt-3 text-white'> 

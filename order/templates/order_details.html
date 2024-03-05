@@ -6,6 +6,8 @@
 <div class='flex flex-row items-center justify-between text-lg font-semibold my-5'>
   <p>Thanks For Your Order. Your Order ID: {{ order.id }}</p>
   <p>Order Date: {{ order.placed_at}}</p>
+  <p>Order Date: {{ order.items.product.title}}</p>
+  
 </div>
 </div>
 {%endblock%}

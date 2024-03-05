@@ -16,23 +16,29 @@
 
       <div class="w-[550px] h-[370px] bg-slate-800 p-5 flex flex-col text-white rounded-md">
           <h2 class='text-3xl font-semibold my-4'>{{ item.title}}</h2>
-          <p class='text-lg mb-2'>Description: {{ item.description  }}</p>
+          <p class='text-lg mb-2'>Description: {{ item.description|truncatewords:20 }}</p>
         
         {% comment %} mapping category {% endcomment %}
         {% for cat in item.category.all %}
           <h4 class='bg-gray-500 rounded-md w-fit px-3 py-1 text-sm mb-2'> {{cat.name}}</h4>
            
       {% endfor %}
-          <h4 class='text-xl font-semibold items-stretch'>Price: ${{ item.price }}</h4>
+          <h4 class='text-xl font-semibold items-stretch'>Price: $
+            {%if item.active %}
+            {{item.discount_price}}
+            {%else%}
+            {{item.price}}
+            {%endif%}</h4>
           
           <div class="mt-4">
-            {% if review_p %}
+            {% comment %} {% if has_ordered %} {% endcomment %}
             <a class="bg-gray-500  text-xl px-3 py-1 rounded-md hover:bg-gray-600 transition-colors duration-300" href="{% url 'review' item.id %}">Write a Review</a>
             <a class="bg-gray-500  text-xl px-3 py-1 rounded-md hover:bg-gray-600 transition-colors duration-300" href="{% url 'addcart' item.id %}">Add To Cart</a>
             <a class="bg-gray-500  text-xl px-3 py-1 rounded-md hover:bg-gray-600 transition-colors duration-300" href="{% url 'cart' %}">View Cart</a>
-            {% else %}
+            {% comment %} {% else %}
             <a class="bg-gray-500  text-xl px-3 py-1 rounded-md hover:bg-gray-600 transition-colors duration-300" href="{% url 'addcart' item.id %}">Add To Cart</a>
-            {% endif %}
+            
+            {% endif %} {% endcomment %}
           </div>
       </div>
         

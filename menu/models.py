@@ -16,7 +16,11 @@ class FoodItem(models.Model):
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     category = models.ManyToManyField(Category)
-    
+    discount_price = models.PositiveIntegerField(default=0,blank=True , null =True)
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+    active = models.BooleanField(default=False)
+
     def __str__(self):
         return self.title
 class CartItem(models.Model):

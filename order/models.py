@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from menu.models import CartItem,FoodItem
+from menu.models import CartItem,FoodItem,Category
 # Create your models here.
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -16,9 +16,10 @@ class OrderItem(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2) 
 
 
-class SpecialOffer(models.Model):
-    product = models.ForeignKey(FoodItem, on_delete=models.CASCADE)
-    discount_price = models.PositiveIntegerField(default=0,blank=True , null =True)
-    start_date = models.DateField(null=True, blank=True)
-    end_date = models.DateField(null=True, blank=True)
-    active = models.BooleanField(default=False)
+# class SpecialOffer(models.Model):
+#     image = models.ImageField(upload_to='menu/images',blank = True,null = True)
+#     title = models.CharField(max_length = 50,blank = True,null = True)
+#     description = models.TextField(blank = True,null = True)
+#     price = models.DecimalField(max_digits=10, decimal_places=2,blank = True,null = True)
+#     category = models.ManyToManyField(Category)
+#     discount_price = models.PositiveIntegerField(default=0,blank=True , null =True)

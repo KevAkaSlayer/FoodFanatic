@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from menu.models import CartItem,FoodItem
-from .models import OrderItem,SpecialOffer,Order
+from .models import OrderItem,Order
 from django.contrib.auth.decorators import login_required
 from decimal import Decimal
 from datetime import datetime
@@ -40,12 +40,12 @@ def order_details(request, order_id):
     
 #     return redirect('order_details', order_id=order_id)
 
-def product_list(request):
-    products = FoodItem.objects.all()
-    active_offers = SpecialOffer.objects.filter(active=True)
+# def product_list(request):
+#     products = SpecialOffer.objects.all()
+#     active_offers = SpecialOffer.objects.filter(active=True)
    
         
-    return render(request, 'product_list.html', {'active_offers': active_offers})
+#     return render(request, 'product_list.html', {'active_offers': active_offers,'products':products})
 
 
 # def product_list(request):

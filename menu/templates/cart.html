@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
-
+{%load static%}
 {%block content%}
+
 
 <section class="h-[500px] gradient-custom">
     
@@ -23,7 +24,9 @@
                          <div>
                           <form action="{% url 'remove' item.pk %}" method="post"> 
                             {% csrf_token %}
-                            <button type="submit" class="-remove">Remove</button>
+                            <button type="submit" class="-remove">
+                              <img src="{%static 'icons8-trash-50.png'%}" alt="">
+                              Remove</button>
                           </form>
                         </div>
                       </div>
@@ -36,14 +39,22 @@
                       {% for item in cart_items %}
                        <div class='flex flex-row justify-between'>
                         <h4 class='text-xl'>{{ item.product.title }}</h4>
-                         <h4 class='text-xl'>{{ item.quantity }}x  $ {{item.price}}</h4>
+                         <h4 class='text-xl'>{{ item.quantity }}x  $ 
+                          {%if item.product.active %}
+                          {{item.product.discount_price}}
+                          {%else%}
+                          {{item.product.price}}
+                          {%endif%}
+                         </h4>
                        </div>
                         {% endfor %}
                     </div>
                     <hr>
                     <div class='flex flex-row justify-between flex-grow'>
                       <h4 class='text-xl'>Total Payment: </h4> 
-                      <h4 class='text-xl'>  $ {{total_price}}</h4>
+                      <h4 class='text-xl'>  
+                        ${{total_price}}
+                        </h4>
                     </div>
 
                     <div class='flex justify-center items-center'>
