@@ -2,109 +2,154 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Food Fanatic</title>
-      <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 
-        {% comment %} <link rel="stylesheet" href="{% static './static/style.css'%}" /> {% endcomment %}
+    {% comment %}
+    <link rel="stylesheet" href="{% static './static/style.css'%}" />
+    {% endcomment %}
+  </head>
 
-    
-</head>
-
-<body>
+  <body>
     <header>
+      <!-- Navbar -->
+      <div class="bg-slate-800">
+        <nav class="max-w-7xl mx-auto flex justify-between item-center p-4">
+          <div class="flex item-center gap-2">
+            <a href={%url 'home'%} class="text-white text-md md:text-2xl font-serif hover:text-slate-300 transition-colors duration-300">
+              FoodFanatic
+            </a>
+          </div>
+          <div class="flex gap-2">
+            <ul
+              class="text-white flex flex-row justify-center item-center gap-5 text-lg font-semibold"
+            >
+              <li
+                class="hover:bg-slate-500 px-[2px] my-auto text-xs md:text-base md:px-1 lg:px-2 py-[1px] md:py-[2px] lg:py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400 transition-colors duration-300"
+              >
+                <a href="{%url 'home'%}">Home</a>
+              </li>
 
-        <!-- Navbar -->
-    <div class='bg-slate-800'>
-        <nav class="max-w-7xl mx-auto flex justify-between item-center p-4 ">
-            <div class="flex item-center gap-2"> 
-                <img src="#" alt="" />
-                <h3 class='text-white text-2xl font-serif'>FoodFanatic</h3>
-            </div>
-            <div class="flex gap-2">
-                <ul class='text-white flex flex-row justify-center item-center gap-5 text-lg font-semibold'>
-                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a href="{%url 'home'%}">Home</a></li>
-
-                    {% if user.is_authenticated %}
-                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300 "><a href="{%url 'orderhistory' %}"> Order History</a></li>
-                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a href="{%url 'profile' %}">Profile</a></li>
-                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a href="{%url 'logout'%}">Logout</a></li>
-                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a href="{%url 'cart'%}"><img src="{% static 'icons8-cart-24.png' %}" alt="">
-                    </a></li>
-                    {%else %}   
-                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a href="{% url 'login'%}">Login</a></li>
-                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a href="{%url 'register'%}">Register</a></li>
-                    {% endif %}      
-                </ul>
-            </div>
+              {% if user.is_authenticated %}
+              <li
+                class="hover:bg-slate-500 px-[2px] text-[8px] md:text-base md:px-1 lg:px-2 py-[1px] md:py-[2px] lg:py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400 transition-colors duration-300"
+              >
+                <a href="{%url 'orderhistory' %}">Order History</a>
+              </li>
+              <li
+                class="hover:bg-slate-500 px-[2px] my-auto text-xs md:text-base md:px-1 lg:px-2 py-[1px] md:py-[2px] lg:py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400 transition-colors duration-300"
+              >
+                <a href="{%url 'profile' %}">Profile</a>
+              </li>
+              <li
+                class="hover:bg-slate-500 px-[2px] my-auto text-xs md:text-base md:px-1 lg:px-2 py-[1px] md:py-[2px] lg:py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400 transition-colors duration-300"
+              >
+                <a href="{%url 'logout'%}">Logout</a>
+              </li>
+              <li
+                class="hover:bg-slate-500 px-[2px] my-auto text-xs md:text-base md:px-1 lg:px-2 py-[1px] md:py-[2px] lg:py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400 transition-colors duration-300"
+              >
+                <a href="{%url 'cart'%}"
+                  ><img src="{% static 'icons8-cart-24.png' %}" alt="" />
+                </a>
+              </li>
+              {%else %}
+              <li
+                class="hover:bg-slate-500 px-[2px] my-auto text-xs md:text-base md:px-1 lg:px-2 py-[1px] md:py-[2px] lg:py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400 transition-colors duration-300"
+              >
+                <a href="{% url 'login'%}">Login</a>
+              </li>
+              <li
+                class="hover:bg-slate-500 px-[2px] my-auto text-xs md:text-base md:px-1 lg:px-2 py-[1px] md:py-[2px] lg:py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400 transition-colors duration-300"
+              >
+                <a href="{%url 'register'%}">Register</a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
         </nav>
-    </div>
+      </div>
 
-
-        <!-- Banner -->
-    
-
+      <!-- Banner -->
     </header>
 
-
-    {%block content%} 
-    
-    {%endblock %}
+    {%block content%} {%endblock %}
 
     <footer>
-       <div class=' bg-slate-800'>
-        <div class="max-w-7xl mx-auto shadow-md py-10 flex">
-            <div class="flex flex-col items-start space-y-3 px-10 w-1/2">
-                <h5 class='text-2xl font-semibold text-white mb-8'>Follow US</h5>
-                <div class="flex gap-4">
-                   <a href="#"> <img class="hover:cursor-pointer" src="{% static 'facebookw.png' %}" alt="" /></a>
-                   <a href="#"> <img class="hover:cursor-pointer" src="{% static 'instagram.png' %}" alt="" /></a>
-                   <a href="#"> <img class="hover:cursor-pointer" src="{% static 'linkedin.png' %}" alt="" /></a>
-                   <a href="#"> <img class="hover:cursor-pointer" src="{% static 'twitterx.png' %}" alt="" /></a>
-                    
-                </div>
-            </div> 
-           
-           <div class='w-1/2 border-l-2 border-l-white pl-10'>
-            <h5 class='text-2xl font-semibold text-white mb-8'>Contact US</h5>
-            <div class='text-white space-y-4'>
-                <div class='flex items-center justify-start gap-5'>
-                    <img class="w-8 h-8" src="{% static 'location.png' %}" alt="" />
-                    <p class='max-w-xl'>
-                        
-                        Wisconsin Ave, Suite 700 <br/>
-                        Chevy Chase, Maryland 20815</p>
-                </div>
-                <div class='flex items-center justify-start gap-5'>
-                    <img class="w-8 h-8" src="{% static 'mail.png' %}" alt="" />
-                    <p class='max-w-xl'>support@gmail.com</p>
-                </div>
+      <div class="bg-slate-800">
+        <div class="max-w-7xl mx-auto shadow-md py-10 flex flex-col md:flex-row gap-8 md:gap-0">
+          <div class="flex flex-col items-start space-y-3 px-10 w-1/2">
+            <h5 class="text-2xl font-semibold text-white mb-3 md:mb-8">Follow US</h5>
+            <div class="flex gap-4">
+              <a href="#">
+                <img
+                  class="hover:cursor-pointer"
+                  src="{% static 'facebookw.png' %}"
+                  alt=""
+              /></a>
+              <a href="#">
+                <img
+                  class="hover:cursor-pointer"
+                  src="{% static 'instagram.png' %}"
+                  alt=""
+              /></a>
+              <a href="#">
+                <img
+                  class="hover:cursor-pointer"
+                  src="{% static 'linkedin.png' %}"
+                  alt=""
+              /></a>
+              <a href="#">
+                <img
+                  class="hover:cursor-pointer"
+                  src="{% static 'twitterx.png' %}"
+                  alt=""
+              /></a>
             </div>
-           </div>
-        </div>
-       </div>
-       
-        <ul class="flex items-center justify-center gap-20 font-semibold my-6 text-xl">
-            <a href='#' class='hover:cursor-pointer'>About us</a>
-            <a href='#' class='hover:cursor-pointer'>Service</a>
-            <a href='#' class='hover:cursor-pointer'>Culture</a>
-            <a href='#' class='hover:cursor-pointer'>Blog</a>
-        </ul>
-        <p class="text-center flex items-center justify-center my-3"> © 2021 All Rights Reserved</p>
-    </footer>
+          </div>
 
+          <div class="w-1/2 md:border-l-2 md:border-l-white pl-10">
+            <h5 class="text-2xl font-semibold text-white mb-3 md:mb-8">Contact US</h5>
+            <div class="text-white space-y-4">
+              <div class="flex items-center justify-start gap-5">
+                <img class="w-8 h-8" src="{% static 'location.png' %}" alt="" />
+                <p class="max-w-xl">
+                  Wisconsin Ave, Suite 700 <br />
+                  Chevy Chase, Maryland 20815
+                </p>
+              </div>
+              <div class="flex items-center justify-start gap-5">
+                <img class="w-8 h-8" src="{% static 'mail.png' %}" alt="" />
+                <p class="max-w-xl">support@gmail.com</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ul
+        class="flex flex-row items-center justify-center gap-5 md:gap-20 font-semibold my-6 text-xl"
+      >
+        <a href="#" class="hover:cursor-pointer">About us</a>
+        <a href="#" class="hover:cursor-pointer">Service</a>
+        <a href="#" class="hover:cursor-pointer">Culture</a>
+        <a href="#" class="hover:cursor-pointer">Blog</a>
+      </ul>
+      <p class="text-center flex items-center justify-center my-3">
+        © 2021 All Rights Reserved
+      </p>
+    </footer>
 
     <!-- add script file  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.js"></script>
 
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.bundle.min.js" integrity="..."></script>
-
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.bundle.min.js"
+      integrity="..."
+    ></script>
+  </body>
 </html>

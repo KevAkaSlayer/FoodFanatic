@@ -1,102 +1,98 @@
-{% extends "base.html" %} 
+{% extends "base.html" %} {% load static %} {% block content %} {% comment %}
+banner section {% endcomment %}
+<div
+  class="w-full flex flex-col-reverse md:flex-row items-center justify-center max-w-7xl mx-auto my-3 md:my-5 lg:my-10 px-1 md:px-5 lg:px-0"
+>
+  <h1 class="w-1/2 text-5xl md:text-7xl lg:text-9xl font-bold font-serif">
+    Delicious Fast Food
+  </h1>
 
-
-
-
-{% load static %}
-
-
-
-
-
-
-{% block content %}
-
-
-
-
-
-<div class='w-full flex items-center justify-center max-w-7xl mx-auto my-10'>
-  <div>
-    <h1 class='w-1/2 text-9xl font-bold font-serif'>Delicious Fast Food</h1>
-  </div>
-  <img class='w-[400px]' src="{% static 'banner.png' %}" alt="">
+  <img class="w-1/2 lg:w-[400px]" src="{% static 'banner.png' %}" alt="" />
 </div>
 
-
-
-
 <div class="p-2 max-w-7xl mx-auto">
+  <h1
+    class="mt-10 md:mt-0 mb-8 md:mb-20 pt-5 text-center text-xl md:text-4xl font-semibold"
+  >
+    Available Food
+  </h1>
 
-        <h1 class="mb-20 pt-5 text-center text-4xl font-semibold ">Available Food</h1>
-
-      {% comment %} Tab Bar {% endcomment %}
-        <div class='flex flex-row justify-center items-start gap-5'>
-            <div class='w-1/4 flex flex-col gap-2 justify-center item-center text-lg font-md text-white my-14' > 
-              <a class='hover:bg-opacity-50 px-2 py-1 rounded-md bg-slate-800 border-b-2 border-b-slate-800 hover:border-b-opacity-50  transition-colors duration-300 ' href="{% url 'home'%}"> All</a>
-              {% for category in categories %}
-              <a class='hover:bg-opacity-50 px-2 py-1 rounded-md bg-slate-800 border-b-2 border-b-slate-800 hover:border-b-opacity-50  transition-colors duration-300 ' href="{% url 'catfilter' category.slug %}"> {{category.name}}</a>
-              {% endfor %}
-
-              {% comment %} <a class='hover:bg-opacity-50 px-2 py-1 rounded-md bg-slate-800 border-b-2 border-b-slate-800 hover:border-b-opacity-50  transition-colors duration-300 ' href="{% url 'product_list'%}">Special Offer</a> {% endcomment %}
-
-            </div>
-
-            <div class="w-3/4">
-              <h4 class='px-3 text-2xl font-semibold'>{{data | length}} results found</h4>
-
-              {% comment %} All Foods Cards {% endcomment %}
-              <div class="grid grid-cols-3 gap-5 pt-5">
-                {% for item in data %}
-                <div class="col-2 p-1 bg-slate-800 rounded-md ">
-                  <div class="card m-2">
-                    <div class="relative">
-                        <img src="{{item.image.url}}" class="rounded-md w-[500px]" style="max-width:100%; height:200px" alt="...">
-                      <div class='flex flex-col justify-start'>
-                          <h5 class="text-white text-2xl font-semibold mt-3">{{item.title}}</h5>
-                        <h5 class='bg-gray-600 text-white text-sm w-fit px-[6px] py-[4px] rounded-md mt-1'>
-
-                        {% for cat in item.category.all %}
-                            
-                        {{cat.name}} 
-                
-                        {% endfor %}
-                        </h5>
-                        
-                        <p class="text-base mt-1 text-white">{{item.description |truncatewords:10}}</p>
-                        <div class='absolute top-2 right-2'>
-                              <p class='bg-gray-600 px-[4px] py-[2px] rounded-md text-lg text-white font-md'>
-                                {% if item.active %}
-                                <del>$ {{item.price}}</del>
-                                <span> $ {{item.discount_price}} </span>
-                                 {%else%}
-                                 $ {{item.price}}
-                                 {%endif%}
-                            </p>
-                        </div>
-                        <div class='flex items-center justify-center bg-gray-600 hover:bg-opacity-50 transition duration-300 w-[90px] h-[40px] px-[6px] py-[4px] rounded-md mt-3 text-white'> 
-                          
-                          <a class='text-center' href="{% url 'detail' item.id %}">Details</a>
-                        </div>
-                      </div>
-                      
-                    </div>
-                  </div>
-                </div>
-                {% endfor %}
-                </div>
-              </div>
-       </div>
-
+  {% comment %} Tab Bar {% endcomment %}
+  <div class="flex flex-col md:flex-row justify-center items-start gap-5">
+    <div
+      class="w-[70%] md:w-1/4 flex flex-col gap-2 justify-center item-center text-lg font-md text-white mx-auto md:my-14"
+    >
+      <a
+        class="hover:bg-opacity-50 px-2 py-1 rounded-md bg-slate-800 border-b-2 border-b-slate-800 hover:border-b-opacity-50 transition-colors duration-300"
+        href="{% url 'home'%}"
+      >
+        All</a
+      >
+      {% for category in categories %}
+      <a
+        class="hover:bg-opacity-50 px-2 py-1 rounded-md bg-slate-800 border-b-2 border-b-slate-800 hover:border-b-opacity-50 transition-colors duration-300"
+        href="{% url 'catfilter' category.slug %}"
+      >
+        {{category.name}}</a
+      >
+      {% endfor %}
     </div>
 
+    <div class="w-[70%] mx-auto md:w-3/4">
+      <h4 class="px-3 text-2xl font-semibold">
+        {{data | length}} results found
+      </h4>
 
+      {% comment %} All Foods Cards {% endcomment %}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 pt-5">
+        {% for item in data %}
+        <div class="col-2 p-1 bg-slate-800 rounded-md">
+          <div class="card m-2">
+            <div class="relative">
+              <img
+                src="{{item.image.url}}"
+                class="rounded-md w-[500px]"
+                style="max-width: 100%; height: 200px"
+                alt="..."
+              />
+              <div class="flex flex-col justify-start">
+                <h5 class="text-white text-2xl font-semibold mt-3">
+                  {{item.title}}
+                </h5>
+                <h5
+                  class="bg-gray-600 text-white text-sm w-fit px-[6px] py-[4px] rounded-md mt-1"
+                >
+                  {% for cat in item.category.all %} {{cat.name}} {% endfor %}
+                </h5>
 
-
-
-
-
-
-
+                <p class="text-base mt-1 text-white">
+                  {{item.description |truncatewords:10}}
+                </p>
+                <div class="absolute top-2 right-2">
+                  <p
+                    class="bg-gray-600 px-[4px] py-[2px] rounded-md text-lg text-white font-md"
+                  >
+                    {% if item.active %}
+                    <del>$ {{item.price}}</del>
+                    <span> $ {{item.discount_price}} </span>
+                    {%else%} $ {{item.price}} {%endif%}
+                  </p>
+                </div>
+                <div
+                  class="flex items-center justify-center bg-gray-600 hover:bg-opacity-50 transition duration-300 w-[90px] h-[40px] px-[6px] py-[4px] rounded-md mt-3 text-white"
+                >
+                  <a class="text-center" href="{% url 'detail' item.id %}"
+                    >Details</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock content %}

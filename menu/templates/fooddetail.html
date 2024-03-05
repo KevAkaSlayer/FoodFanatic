@@ -1,69 +1,95 @@
 {% extends "base.html" %} {% load crispy_forms_tags %} {% block content %}
 
-<div class =""> 
+<div class="">
   <div class="pt-5 max-w-7xl mx-auto my-24">
-
-    <h1 class='text-center text-5xl font-semibold mb-10'>{{ item.title}}</h1>
+    <h1 class="text-center text-3xl lg:text-5xl font-semibold mb-10">
+      {{ item.title}}
+    </h1>
     {% comment %} Single Food Detail {% endcomment %}
-    <div class="flex justify-center items-start gap-5 w-fit mx-auto rounded-md">
-
+    <div
+      class="flex flex-col md:flex-row justify-center items-start gap-2 lg:gap-5 w-fit mx-2 lg:mx-auto rounded-md"
+    >
       {% comment %}Food Image {% endcomment %}
-        <img 
-          src="{{ item.image.url }}"
-          class="w-[550px] h-[370px] rounded-md"
-          alt="{{ item.name }} Image"
-        />
+      <img
+        src="{{ item.image.url }}"
+        class="w-[460px] lg:w-[550px] h-[250px] lg:h-[370px] rounded-md"
+        alt="{{ item.name }} Image"
+      />
 
-      <div class="w-[550px] h-[370px] bg-slate-800 p-5 flex flex-col text-white rounded-md">
-          <h2 class='text-3xl font-semibold my-4'>{{ item.title}}</h2>
-          <p class='text-lg mb-2'>Description: {{ item.description|truncatewords:20 }}</p>
-        
-        {% comment %} mapping category {% endcomment %}
+      <div
+        class="-[460px] lg:w-[550px] h-[250px] lg:h-[370px] bg-slate-800 p-5 flex flex-col text-white rounded-md"
+      >
+        <h2 class="text-lg lg:text-3xl font-semibold my-2 lg:my-4">
+          {{ item.title}}
+        </h2>
+        <p class="text-xs lg:text-lg mb-2">
+          Description: {{ item.description|truncatewords:20 }}
+        </p>
+
         {% for cat in item.category.all %}
-          <h4 class='bg-gray-500 rounded-md w-fit px-3 py-1 text-sm mb-2'> {{cat.name}}</h4>
-           
-      {% endfor %}
-          <h4 class='text-xl font-semibold items-stretch'>Price: $
-            {%if item.active %}
-            {{item.discount_price}}
-            {%else%}
-            {{item.price}}
-            {%endif%}</h4>
-          
-          <div class="mt-4">
-            {% comment %} {% if has_ordered %} {% endcomment %}
-            <a class="bg-gray-500  text-xl px-3 py-1 rounded-md hover:bg-gray-600 transition-colors duration-300" href="{% url 'review' item.id %}">Write a Review</a>
-            <a class="bg-gray-500  text-xl px-3 py-1 rounded-md hover:bg-gray-600 transition-colors duration-300" href="{% url 'addcart' item.id %}">Add To Cart</a>
-            <a class="bg-gray-500  text-xl px-3 py-1 rounded-md hover:bg-gray-600 transition-colors duration-300" href="{% url 'cart' %}">View Cart</a>
-            {% comment %} {% else %}
-            <a class="bg-gray-500  text-xl px-3 py-1 rounded-md hover:bg-gray-600 transition-colors duration-300" href="{% url 'addcart' item.id %}">Add To Cart</a>
-            
-            {% endif %} {% endcomment %}
-          </div>
+        <h4 class="bg-gray-500 rounded-md w-fit px-3 py-1 text-sm mb-2">
+          {{cat.name}}
+        </h4>
+
+        {% endfor %}
+        <h4 class="text-lg lg:text-xl lg:font-semibold items-stretch">
+          Price: $ {%if item.active %} {{item.discount_price}} {%else%}
+          {{item.price}} {%endif%}
+        </h4>
+
+        <div class="mt-4">
+          {% comment %} {% if has_ordered %} {% endcomment %}
+          <a
+            class="bg-gray-500 text-lg lg:text-xl px-1 lg:px-3 py-[2px] lg:py-1 rounded-md hover:bg-gray-600 transition-colors duration-300"
+            href="{% url 'review' item.id %}"
+            >Write a Review</a
+          >
+          <a
+            class="bg-gray-500 text-lg lg:text-xl px-1 lg:px-3 py-[2px] lg:py-1 rounded-md hover:bg-gray-600 transition-colors duration-300"
+            href="{% url 'addcart' item.id %}"
+            >Add To Cart</a
+          >
+          <a
+            class="bg-gray-500 text-lg lg:text-xl px-1 lg:px-3 py-[2px] lg:py-1 rounded-md hover:bg-gray-600 transition-colors duration-300"
+            href="{% url 'cart' %}"
+            >View Cart</a
+          >
+          {% comment %} {% else %}
+          <a
+            class="bg-gray-500 text-xl px-3 py-1 rounded-md hover:bg-gray-600 transition-colors duration-300"
+            href="{% url 'addcart' item.id %}"
+            >Add To Cart</a
+          >
+
+          {% endif %} {% endcomment %}
+        </div>
       </div>
-        
     </div>
     {% comment %} Single Food Detail Ends {% endcomment %}
-
   </div>
 
-
   <div class="text-center">
-        <h1 class="text-5xl font-semibold text-center mb-10">Reviews: {{review | length}}</h1>
-      <div class='max-w-7xl mx-auto flex items-center justify-center gap-3'>
+    <h1 class="text-5xl font-semibold text-center mb-10">
+      Reviews: {{review | length}}
+    </h1>
+    <div
+      class="max-w-7xl w-fit lg:w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 items-center justify-center gap-3"
+    >
+      {% for cm in review %}
 
-    
-       {% for cm in review %}
-
-     
-        <div class="text-white bg-slate-800 p-5 rounded-md space-y-4 mb-5" style="max-width: 18rem;">
-              <p class="">{{cm.created}}</p>
-              <h5 class="text-xl font-semibold uppercase">{{cm.reviewer.first_name}} {{cm.reviewer.last_name}}</h5>
-              <p class="">{{cm.rating}}</p>
-              <p class="">{{cm.body}}</p>
-        </div>
-       {% endfor %}
-      </div> 
+      <div
+        class="text-white bg-slate-800 p-5 rounded-md space-y-4 mb-5"
+        style="max-width: 18rem"
+      >
+        <p class="">{{cm.created}}</p>
+        <h5 class="text-xl font-semibold uppercase">
+          {{cm.reviewer.first_name}} {{cm.reviewer.last_name}}
+        </h5>
+        <p class="">{{cm.rating}}</p>
+        <p class="">{{cm.body}}</p>
+      </div>
+      {% endfor %}
+    </div>
   </div>
 </div>
 {% endblock %}

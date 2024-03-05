@@ -1,10 +1,6 @@
-{% extends 'base.html' %} 
-{% load static %}
-{% comment %} {% load humanize %} {% endcomment %}
-{% comment %} {% block head_title %} Transaction Report{% endblock %} {%endcomment%}
-
-{% block content %}
-
+{% extends 'base.html' %} {% load static %} {% comment %} {% load humanize %} {%
+endcomment %} {% comment %} {% block head_title %} Transaction Report{% endblock
+%} {%endcomment%} {% block content %}
 
 <div class="my-10 py-3 px-4 bg-white rounded-xl shadow-md">
   <h1 class="font-bold text-3xl text-center pb-5 pt-2">Order History</h1>
@@ -22,7 +18,7 @@
           name="start_date"
         />
       </div>
- 
+
       <div
         class="mt-10 pl-3 pr-2 bg-white border rounded-md border-gray-500 flex justify-between items-center relative w-4/12"
       >
@@ -34,9 +30,11 @@
           name="end_date"
         />
       </div>
-      <div class="mt-10 pl-3 pr-2 flex justify-between items-center relative w-4/12">
+      <div
+        class="mt-10 pl-3 pr-2 flex justify-between items-center relative w-4/12"
+      >
         <button
-          class="bg-gray-500  text-xl px-3 py-1 rounded-md hover:bg-gray-600 transition-colors duration-300"
+          class="bg-gray-500 text-xl px-3 py-1 rounded-md hover:bg-gray-600 transition-colors duration-300"
           type="submit"
         >
           Filter
@@ -48,9 +46,7 @@
     class="table-auto mx-auto w-full px-5 rounded-xl mt-8 border dark:border-neutral-500"
   >
     <thead class="bg-slate-800 text-white text-left">
-      <tr
-        class="bg-slate-800 rounded-md py-2 px-4 text-white font-bold"
-      >
+      <tr class="bg-slate-800 rounded-md py-2 px-4 text-white font-bold">
         <th class="px-4 py-2">Order ID</th>
         <th class="px-4 py-2">Date</th>
         <th class="px-4 py-2">Status</th>
@@ -60,28 +56,15 @@
     <tbody>
       {% for order in object_list %}
       <tr class="border-b dark:border-neutral-500">
+        <td class="px-4 py-2">{{ order.id }}</td>
+        <td class="px-4 py-2">{{ order.placed_at|date }}</td>
+        <td class="px-4 py-2">{{ order.status }}</td>
         <td class="px-4 py-2">
-          {{ order.id }} 
+          <a href="#">View details</a>
         </td>
-        <td class="px-4 py-2">
-            {{ order.placed_at|date }}
-        </td>
-        <td class="px-4 py-2">
-            {{ order.status }}
-        </td>
-        <td class="px-4 py-2">
-            <a href="#">View details</a>
-          </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
 {% endblock %}
-
-
-
-
-
-
-

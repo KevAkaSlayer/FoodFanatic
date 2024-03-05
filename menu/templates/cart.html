@@ -1,73 +1,69 @@
-{% extends 'base.html' %}
-{%load static%}
-{%block content%}
+{% extends 'base.html' %} {%load static%} {%block content%}
 
+<section class="min-h-screen lg:min-h-fit gradient-custom">
+  <h3 class="text-center text-3xl mt-12 lg:mt-28 font-semibold">
+    Order Placement
+  </h3>
+  <div class="flex flex-col lg:flex-row max-w-7xl mx-auto my-10 gap-6 w-fit">
+    <div class="flex flex-col gap-6">
+      {% for item in cart_items %}
+      <div
+        class="flex bg-gray-300 w-[350px] md:w-[700px] mx-auto h-20 my-auto justify-start items-center px-5 rounded-md gap-6"
+      >
+        <div class="">
+          {% if item.product.image %}
+          <img
+            class="w-24 h-16 rounded-md"
+            src="{{ item.product.image.url }}"
+            alt="{{ item.product.title }}"
+          />
+          {% endif %}
+        </div>
+        <div class="flex-grow">
+          <h3 class="font-semibold">{{ item.product.title }}</h3>
+          <p class="font-semibold">Quantity: {{ item.quantity }}x</p>
+        </div>
+        <div>
+          <form action="{% url 'remove' item.pk %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="-remove">
+              <img src="{%static 'icons8-trash-50.png'%}" alt="" />
+              Remove
+            </button>
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
 
-<section class="h-[500px] gradient-custom">
-    
+    <div class="bg-gray-300 rounded-md w-[350px] md:w-[700px] lg:w-[500px] p-5 flex flex-col">
+      <div class="flex flex-col gap-4 mb-6">
+        {% for item in cart_items %}
+        <div class="flex flex-row justify-between">
+          <h4 class="text-xl">{{ item.product.title }}</h4>
+          <h4 class="text-xl">
+            {{ item.quantity }}x $ {%if item.product.active %}
+            {{item.product.discount_price}} {%else%} {{item.product.price}}
+            {%endif%}
+          </h4>
+        </div>
+        {% endfor %}
+      </div>
+      <hr />
+      <div class="flex flex-row justify-between flex-grow">
+        <h4 class="text-xl">Total Payment:</h4>
+        <h4 class="text-xl">${{total_price}}</h4>
+      </div>
 
-  <h3 class='text-center text-3xl mt-28 font-semibold'>Order Placement</h3>
-                 <div class='flex flex-row max-w-7xl mx-auto my-10 gap-6'>
-
-                  <div class='flex flex-col gap-6 '>
-                    {% for item in cart_items %}
-                      <div class="flex bg-gray-300 w-[700px] h-20 my-auto justify-start items-center px-5 rounded-md gap-6">
-                        <div class="">
-                          {% if item.product.image %}
-                            <img class='w-24 rounded-md' src="{{ item.product.image.url }}" alt="{{ item.product.title }}">
-                          {% endif %}
-                        </div>
-                        <div class="flex-grow">
-                          <h3 class='font-semibold'>{{ item.product.title }}</h3>
-                          <p class='font-semibold'>Quantity: {{ item.quantity }}x</p>
-                         </div>
-                         <div>
-                          <form action="{% url 'remove' item.pk %}" method="post"> 
-                            {% csrf_token %}
-                            <button type="submit" class="-remove">
-                              <img src="{%static 'icons8-trash-50.png'%}" alt="">
-                              Remove</button>
-                          </form>
-                        </div>
-                      </div>
-                    {% endfor %}
-                  </div>
-
-
-                  <div class='bg-gray-300 rounded-md w-[500px] p-5 flex flex-col'>
-                    <div class='flex flex-col gap-4 mb-6'>
-                      {% for item in cart_items %}
-                       <div class='flex flex-row justify-between'>
-                        <h4 class='text-xl'>{{ item.product.title }}</h4>
-                         <h4 class='text-xl'>{{ item.quantity }}x  $ 
-                          {%if item.product.active %}
-                          {{item.product.discount_price}}
-                          {%else%}
-                          {{item.product.price}}
-                          {%endif%}
-                         </h4>
-                       </div>
-                        {% endfor %}
-                    </div>
-                    <hr>
-                    <div class='flex flex-row justify-between flex-grow'>
-                      <h4 class='text-xl'>Total Payment: </h4> 
-                      <h4 class='text-xl'>  
-                        ${{total_price}}
-                        </h4>
-                    </div>
-
-                    <div class='flex justify-center items-center'>
-                      <button class="bg-slate-800 hover:bg-slate-900 text-white font-bold py-2 px-4 rounded-md transition-colors duration-300">
-                        <a href="{%url 'placeorder'%}">Place Order</a>
-                      </button>
-                    </div>
-                  </div>  
-
-
-                 </div>
-                
-  </section>
-
+      <div class="flex justify-center items-center">
+        <button
+          class="bg-slate-800 hover:bg-slate-900 text-white font-bold py-2 px-4 rounded-md transition-colors duration-300"
+        >
+          <a href="{%url 'placeorder'%}">Place Order</a>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
 
 {%endblock%}
