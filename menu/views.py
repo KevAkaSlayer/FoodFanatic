@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import FoodItem,CartItem,Category,Review
 from .forms import ReviewForm
+from order.models import Order
 
 from order.models import SpecialOffer
 
@@ -46,16 +47,29 @@ def details(request,id):
     item = FoodItem.objects.get(pk=id)
     review =Review.objects.filter(item=item)
 
-    if request.method == 'POST':
-        form = ReviewForm(request.POST)
-        if form.is_valid():
-            review = form.save(commit=False)
-            review.item = item
-            review.save()
-            return redirect('detail',id = id)
-    else :
-        form = ReviewForm()
-    return render (request,'fooddetail.html',{'item':item,'form':form,'review':review})
+    if request.user.is_authenticated :
+        has_ordered = Order.objects.filter(user=request.user,id = id).exists()
+        order_count = Order.objects.filter(user=request.user,id = id).count()
+        if order_count >= 1 :
+            review_p = True
+        else :
+            review_p = False
+        return render(request,'fooddetail.html',{'has_ordered':has_ordered,'item':item,'review':review,'review_p':review_p})
+    else:
+        return render(request,'fooddetail.html',{'item':item,'review':review})
+
+
+
+    # if request.method == 'POST':
+    #     form = ReviewForm(request.POST)
+    #     if form.is_valid():
+    #         review = form.save(commit=False)
+    #         review.item = item
+    #         review.save()
+    #         return redirect('detail',id = id)
+    # else :
+    #     form = ReviewForm()
+    # return render (request,'fooddetail.html',{'item':item,'form':form,'review':review})
 
 @login_required(login_url='login')
 def ReviewView(request,id):
