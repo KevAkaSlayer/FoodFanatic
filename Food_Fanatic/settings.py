@@ -28,6 +28,7 @@ SECRET_KEY = 'django-insecure-k@m(84p2_fv-qb79)06!l&nkc@kkl8p2i^t%xi%^b5_e%(#c#6
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ['https://foodfanatic.onrender.com','https://*.127.0.0.1']
 
 
 # Application definition
