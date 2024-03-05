@@ -18,7 +18,7 @@ class OrderItem(models.Model):
 
 class SpecialOffer(models.Model):
     product = models.ForeignKey(FoodItem, on_delete=models.CASCADE)
-    discount_percentage = models.PositiveIntegerField(default=0)
+    discount_price = models.PositiveIntegerField(default=0,blank=True , null =True)
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     active = models.BooleanField(default=False)

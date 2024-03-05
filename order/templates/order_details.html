@@ -4,34 +4,8 @@
 <div class='max-w-7xl mx-auto'>
   <h2 class='text-5xl font-semibold my-20 text-center'>Order Details</h2>
 <div class='flex flex-row items-center justify-between text-lg font-semibold my-5'>
-  <p>Order ID: {{ order.id }}</p>
+  <p>Thanks For Your Order. Your Order ID: {{ order.id }}</p>
   <p>Order Date: {{ order.placed_at}}</p>
 </div>
-<table class="order-items">
-  <thead>
-    <tr>
-      <th>Product</th>
-      <th>Price</th>
-      <th>Quantity</th>
-      <th>Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for item in order_items %}
-      <tr>
-        <td>{{ item.product.title }}</td>
-        <td>{{item.cartitem.product.price }}</td>
-        <td>{{ item.quantity }}</td>
-        <td>{{ item.total_cost }}</td>
-      </tr>
-    {% endfor %}
-  </tbody>
-  <tfoot>
-    <tr>
-      <td colspan="3">Total Cost:</td>
-      <td>{{ total_cost}}</td>
-    </tr>
-  </tfoot>
-</table>
 </div>
 {%endblock%}

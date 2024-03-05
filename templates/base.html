@@ -31,13 +31,13 @@
 
                     {% if user.is_authenticated %}
                     <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300 "><a href="{%url 'orderhistory' %}"> Order History</a></li>
-                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a target="_blank" href="{%url 'profile' %}">Profile</a></li>
-                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a target="_blank" href="{%url 'logout'%}">Logout</a></li>
-                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a target="_blank" href="{%url 'cart'%}"><img src="{% static 'icons8-cart-24.png' %}" alt="">
+                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a href="{%url 'profile' %}">Profile</a></li>
+                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a href="{%url 'logout'%}">Logout</a></li>
+                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a href="{%url 'cart'%}"><img src="{% static 'icons8-cart-24.png' %}" alt="">
                     </a></li>
                     {%else %}   
-                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a target="_blank" href="{% url 'login'%}">Login</a></li>
-                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a target="_blank" href="{%url 'register'%}">Register</a></li>
+                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a href="{% url 'login'%}">Login</a></li>
+                    <li class="hover:bg-slate-500 px-2 py-1 rounded-md border-b-2 border-b-slate-400 hover:border-b-slate-400  transition-colors duration-300"><a href="{%url 'register'%}">Register</a></li>
                     {% endif %}      
                 </ul>
             </div>
@@ -49,8 +49,14 @@
     
 
     </header>
-
-
+    {% for message in messages %}
+    <div class=" message-container text-center text-black alert {{ message.tags }} alert-dismissible shadow fade show" role="alert">
+        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message | safe }}
+    </div>
+{% endfor %}
 
 
     {%block content%} 

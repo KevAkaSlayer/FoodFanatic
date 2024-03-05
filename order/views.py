@@ -44,21 +44,8 @@ def product_list(request):
     products = FoodItem.objects.all()
     active_offers = SpecialOffer.objects.filter(active=True)
    
-    for product in products:
-        for offer in active_offers:
-            if offer.product == product:
-                discount_percentage = Decimal(str(offer.discount_percentage))
-                discounted_price = product.price * (1 - discount_percentage / 100)
-                break 
-        product.discounted_price = discounted_price
         
-
-    context = {
-        'products': products,
-        'active_offers': active_offers,
-        'product.discounted_price': discounted_price
-    }
-    return render(request, 'product_list.html', context)
+    return render(request, 'product_list.html', {'active_offers': active_offers})
 
 
 # def product_list(request):

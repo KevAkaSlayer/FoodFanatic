@@ -3,21 +3,35 @@ from django.contrib.auth.decorators import login_required
 from .models import FoodItem,CartItem,Category,Review
 from .forms import ReviewForm
 
+from order.models import SpecialOffer
+
 @login_required(login_url='login')
 def add_to_cart(request, product_id):
     product = get_object_or_404(FoodItem, pk=product_id)
+    
     cart_item = CartItem.objects.filter(product=product, user=request.user).first()
     if cart_item:
         cart_item.quantity += 1
         cart_item.save()
     else:
-        CartItem.objects.create(product=product, user=request.user, quantity=1)
+        item = CartItem.objects.create(product=product, user=request.user,price = product.price, quantity=1)
+        special = SpecialOffer.objects.filter(product=product).first()
+        if special :
+        
+            item.price= special.discount_price
+            item.save()
+            
     return redirect('cart')
+
+
 @login_required(login_url='login')
 def view_cart(request):
     cart_items = CartItem.objects.filter(user=request.user)
-    total_price = sum(item.product.price * item.quantity for item in cart_items)
+    total_price = sum(item.price * item.quantity for item in cart_items)
     return render(request, 'cart.html', {'cart_items': cart_items, 'total_price': total_price})
+
+
+
 @login_required(login_url='login')
 def remove_from_cart(request, item_id):
     cart_item = get_object_or_404(CartItem, pk=item_id)

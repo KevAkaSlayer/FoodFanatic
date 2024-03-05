@@ -16,12 +16,13 @@ class FoodItem(models.Model):
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     category = models.ManyToManyField(Category)
-
+    
     def __str__(self):
         return self.title
 class CartItem(models.Model):
     product = models.ForeignKey(FoodItem, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
+    price = models.DecimalField(max_digits=10, decimal_places=2,null= True , blank =True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 # class Order(models.Model):

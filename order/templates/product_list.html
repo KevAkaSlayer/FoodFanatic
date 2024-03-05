@@ -9,10 +9,13 @@
     
       <p class="flex flex-row items-center justify-start pl-2 my-1 space-x-3">
         <del class="text-xl font-semibold ">$ {{ product.product.price}}</del>
-        <span class="text-lg font-md">$ {{ product.discounted_price }}</span>
+        <span class="text-xl font-semibold ">$ {{ product.discount_price}}</span>
       </p>
     <div class='flex justify-center items-center mb-5'>
-      <button class="bg-slate-800 hover:bg-slate-900 text-white font-bold py-2 px-4 rounded-md transition-colors duration-300" data-product-id="{{ product.pk }}">Add to Cart</button>
+      <button class="bg-slate-800 hover:bg-slate-900 text-white font-bold py-2 px-4 rounded-md transition-colors duration-300" data-product-id="{{ product.pk }}">
+        <a href="{% url 'addcart' product.product.id %}">
+        Add to Cart
+      </a></button>
     </div>
    </div>
    {% endfor %}
