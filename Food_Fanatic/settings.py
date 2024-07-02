@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework',
     'menu',
+    'corsheaders',
 
 ]
 
@@ -114,6 +115,11 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:5500", 
+    "https://food-fanatic.vercel.app", # Allow requests from your development origin
 ]
 
 
