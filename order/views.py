@@ -38,6 +38,27 @@ def place_order(request):
         )
         return redirect("cart")
 
+    # A cart price is only a quote. Charge the price that is live at checkout,
+    # and let the customer re-confirm whenever that differs from what they saw.
+    repriced = []
+    for item in cart_items:
+        current_price = item.product.current_price
+        if current_price != item.unit_price:
+            repriced.append((item.product.title, item.unit_price, current_price))
+            item.unit_price = current_price
+    if repriced:
+        CartItem.objects.bulk_update(cart_items, ("unit_price",))
+        changes = ", ".join(
+            f"{title} is now {new_price} (was {old_price})"
+            for title, old_price, new_price in repriced
+        )
+        messages.warning(
+            request,
+            f"Prices changed while the items were in your cart: {changes}. "
+            "Review your cart and place the order again.",
+        )
+        return redirect("cart")
+
     total_amount = sum(
         (item.line_total for item in cart_items),
         start=Decimal("0.00"),

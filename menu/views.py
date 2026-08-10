@@ -97,11 +97,7 @@ def ReviewView(request, id):
         messages.error(request, "You can review an item after purchasing it.")
         return redirect("detail", id=id)
 
-    review = (
-        Review.objects.filter(reviewer=request.user, item=item)
-        .order_by("-created")
-        .first()
-    )
+    review = Review.objects.filter(reviewer=request.user, item=item).first()
     form = ReviewForm(request.POST or None, instance=review)
     if request.method == "POST" and form.is_valid():
         saved_review = form.save(commit=False)

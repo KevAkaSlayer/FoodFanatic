@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.core.exceptions import ValidationError
 from django.core.files.storage import default_storage
+from django.db.utils import IntegrityError
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
@@ -192,3 +193,19 @@ class ReviewAuthorizationTests(TestCase):
         review = Review.objects.get()
         self.assertEqual(review.rating, 4)
         self.assertEqual(review.body, "Still very delicious.")
+
+    def test_database_rejects_a_second_review_of_the_same_item(self):
+        Review.objects.create(
+            reviewer=self.user,
+            item=self.item,
+            body="This was delicious.",
+            rating=5,
+        )
+
+        with self.assertRaises(IntegrityError):
+            Review.objects.create(
+                reviewer=self.user,
+                item=self.item,
+                body="Reviewing it a second time.",
+                rating=1,
+            )

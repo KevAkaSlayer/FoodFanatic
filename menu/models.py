@@ -124,6 +124,12 @@ class Review(models.Model):
 
     class Meta:
         ordering = ("-created",)
+        constraints = [
+            models.UniqueConstraint(
+                fields=("reviewer", "item"),
+                name="unique_review_per_reviewer_and_item",
+            )
+        ]
 
     @property
     def rating_stars(self):
