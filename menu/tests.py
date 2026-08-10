@@ -1,20 +1,25 @@
 from datetime import timedelta
 from decimal import Decimal
+from io import BytesIO
+from os import urandom
 from tempfile import TemporaryDirectory
 
 from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.core.exceptions import ValidationError
+from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.db.utils import IntegrityError
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
+from PIL import Image
 
 from order.models import Order, OrderItem
 
 from .models import CartItem, FoodItem, Review
-from Food_Fanatic.storage import SupabaseStorage
+from Food_Fanatic.imaging import compress_image
+from Food_Fanatic.storage import CompressedFileSystemStorage, SupabaseStorage
 
 
 class SupabaseStorageTests(TestCase):
@@ -30,6 +35,53 @@ class SupabaseStorageTests(TestCase):
             "https://example.supabase.co/storage/v1/object/public/"
             "foodfanatic-media/menu/images/chicken%20wings.jpg",
         )
+
+
+class ImageCompressionTests(TestCase):
+    def photo(self, width=4000, height=3000, image_format="JPEG"):
+        """A noisy image, so it cannot be trivially compressed by luck."""
+        buffer = BytesIO()
+        image = Image.frombytes("RGB", (width, height), urandom(width * height * 3))
+        image.save(buffer, format=image_format, quality=95)
+        buffer.seek(0)
+        return buffer
+
+    def test_oversized_photo_is_downscaled_and_shrunk(self):
+        original = self.photo()
+        original_size = len(original.getvalue())
+
+        compressed = compress_image(original)
+
+        self.assertIsNotNone(compressed)
+        self.assertLess(compressed.size, original_size)
+        self.assertEqual(Image.open(compressed).width, 1200)
+        # The container is preserved so the stored file name stays accurate.
+        self.assertEqual(Image.open(compressed).format, "JPEG")
+
+    def test_small_image_keeps_its_dimensions(self):
+        small = self.photo(width=200, height=150)
+
+        compressed = compress_image(small, max_width=1200)
+
+        # It may still be re-encoded, but it must never be scaled up.
+        if compressed is not None:
+            self.assertEqual(Image.open(compressed).size, (200, 150))
+
+    def test_non_image_content_is_stored_untouched(self):
+        content = ContentFile(b"this is not an image", name="notes.txt")
+
+        self.assertIsNone(compress_image(content))
+
+    def test_storage_compresses_on_upload(self):
+        with TemporaryDirectory() as media_root:
+            storage = CompressedFileSystemStorage(location=media_root)
+            original = self.photo()
+
+            name = storage.save("menu/images/large.jpg", original)
+
+            self.assertLess(storage.size(name), len(original.getvalue()))
+            with storage.open(name) as stored:
+                self.assertEqual(Image.open(stored).width, 1200)
 
 
 class FoodItemPricingTests(TestCase):

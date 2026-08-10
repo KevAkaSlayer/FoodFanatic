@@ -108,6 +108,28 @@ On Vercel, FoodFanatic uses the connected Supabase project's Storage service:
   `SUPABASE_SERVICE_ROLE_KEY` is never sent to the browser and must remain a
   sensitive Vercel variable.
 
+### Image sizes
+
+Uploads are downscaled and re-encoded before they reach storage, so a
+multi-megapixel camera original is not served to a browser that renders it in a
+200 pixel card. `IMAGE_MAX_WIDTH` (default 1200) and `IMAGE_QUALITY` (default
+82) tune this; the file format is preserved so stored names stay accurate.
+
+Images stored before this existed are not touched automatically. Rewrite them
+once, from a trusted workstation holding the production database and Supabase
+variables:
+
+```shell
+python manage.py compress_menu_images --dry-run   # report the savings
+python manage.py compress_menu_images             # apply them
+```
+
+Each rewritten image is saved under a new name and the old object is deleted,
+because uploads carry a one-year `cache-control` and reusing the path would let
+caches keep serving the original. The command only rewrites an image that gets
+at least 10% smaller (`--min-saving`), so repeat runs are no-ops rather than
+repeated re-encodings.
+
 The Supabase Vercel integration already provides `SUPABASE_URL` and
 `SUPABASE_SERVICE_ROLE_KEY` for Production and Preview. Add
 `SUPABASE_STORAGE_BUCKET=foodfanatic-media` as a non-sensitive project variable

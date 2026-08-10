@@ -6,7 +6,17 @@ from urllib.parse import quote
 
 from django.core.exceptions import ImproperlyConfigured
 from django.core.files.base import ContentFile
-from django.core.files.storage import Storage
+from django.core.files.storage import FileSystemStorage, Storage
+
+from .imaging import compress_image
+
+
+class CompressedFileSystemStorage(FileSystemStorage):
+    """Local-development counterpart to the compression done on upload."""
+
+    def _save(self, name, content):
+        compressed = compress_image(content)
+        return super()._save(name, compressed if compressed is not None else content)
 
 
 class SupabaseStorage(Storage):
@@ -46,6 +56,12 @@ class SupabaseStorage(Storage):
         content_type = getattr(content, "content_type", None)
         if not content_type:
             content_type = mimetypes.guess_type(name)[0] or "application/octet-stream"
+
+        # Resize before upload. compress_image preserves the container format,
+        # so the name and the content type stay accurate.
+        compressed = compress_image(content)
+        if compressed is not None:
+            content = compressed
 
         self.bucket.upload(
             path=name,

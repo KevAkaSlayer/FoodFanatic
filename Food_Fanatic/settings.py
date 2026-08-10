@@ -173,6 +173,19 @@ if SUPABASE_STORAGE_ENABLED:
 else:
     MEDIA_URL = env("MEDIA_URL", default="/media/")
     MEDIA_ROOT = env.path("MEDIA_ROOT", default=BASE_DIR / "media")
+    STORAGES = {
+        "default": {
+            "BACKEND": "Food_Fanatic.storage.CompressedFileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
+
+# Menu photography is displayed in cards a few hundred pixels wide, so uploads
+# are capped well below the multi-megapixel originals cameras produce.
+IMAGE_MAX_WIDTH = env.int("IMAGE_MAX_WIDTH", default=1200)
+IMAGE_QUALITY = env.int("IMAGE_QUALITY", default=82)
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
